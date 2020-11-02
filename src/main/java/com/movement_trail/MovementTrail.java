@@ -1,4 +1,4 @@
-package com.example;
+package com.movement_trail;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -14,10 +14,11 @@ import net.runelite.client.plugins.PluginDescriptor;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+	name = "Movement trail"
 )
 public class ExamplePlugin extends Plugin
 {
+	Player Localplayer;
 	@Inject
 	private Client client;
 
@@ -27,13 +28,18 @@ public class ExamplePlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		log.info("MovementTrail started");
+
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		log.info("MovementTrail stopped");
+	}
+	@Override
+	protected void mouseClicked(MouseEvent mouse){
+		this.Localplayer.getLocalLocation();
 	}
 
 	@Subscribe
@@ -41,13 +47,13 @@ public class ExamplePlugin extends Plugin
 	{
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
+			this.Localplayer = getLocalPlayer();
 		}
 	}
 
 	@Provides
 	ExampleConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(ExampleConfig.class);
+		return configManager.getConfig(Config.class);
 	}
 }

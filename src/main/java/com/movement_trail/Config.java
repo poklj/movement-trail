@@ -1,4 +1,4 @@
-package com.example;
+package com.movement_trail;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
